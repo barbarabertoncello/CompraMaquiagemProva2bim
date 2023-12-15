@@ -9,6 +9,7 @@ import bean.CompraBbd;
 import controle.CompraControle;
 import dao.CompraDao_bbd;
 import java.util.List;
+import tools.Util;
 
 
 /**
@@ -132,6 +133,9 @@ public class JDlgCompraPesquisar extends javax.swing.JDialog {
     private void jBtnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkayActionPerformed
         // TODO add your handling code here:
          int rowSel = jTable1.getSelectedRow();
+         if(rowSel==-1){
+             Util.mensagem("Selecione uma linha");
+         }
         CompraBbd usuarios = compraControle.getBean(rowSel);
         jDlgCompra.beanView(usuarios);
         setVisible(false);

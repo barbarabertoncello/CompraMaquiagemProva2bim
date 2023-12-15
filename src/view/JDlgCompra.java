@@ -37,10 +37,6 @@ public class JDlgCompra extends javax.swing.JDialog {
     CompraBbd compraBbd;
     CompraControle compraControle;
     CompraProdutoControle compraProdutoControle;
-//    public VendasProdutosPesquisar vendasProdutosPesquisar;
-    /**
-     * Creates new form JDlgCompra
-     */
     FornecedorDao_bbd fornecedorDao_bbd;
     FornecedorBbd fornecedorBbd;
 
@@ -203,12 +199,6 @@ public class JDlgCompra extends javax.swing.JDialog {
             }
         });
 
-        jTxtTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtTotalActionPerformed(evt);
-            }
-        });
-
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/incluir.png"))); // NOI18N
         jBtnIncluir.setText("Incluir");
         jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -322,10 +312,6 @@ public class JDlgCompra extends javax.swing.JDialog {
  // TODO add your handling code here:
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
-    private void jTxtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtTotalActionPerformed
-
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         Util.limparCampos(jTxtNumCompra, jFmtData, jCboFornecedor_bbd,  jTxtTotal);
         habilitar(true);
@@ -401,17 +387,22 @@ public class JDlgCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-     JDlgCompraPesquisar jDlgCompraPesquisar = new JDlgCompraPesquisar(null, true);
+        JDlgCompraPesquisar jDlgCompraPesquisar = new JDlgCompraPesquisar(null, true);
         jDlgCompraPesquisar.setTelaAnterior(this);
         jDlgCompraPesquisar.setVisible(true);
-        compraBbd = new CompraBbd();        // TODO add your handling code here:
+        compraBbd = new CompraBbd();    
+     
+// TODO add your handling code here:
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnAlterarbbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarbbdActionPerformed
-    JDlgCompraProduto jDlgCompraProduto = new JDlgCompraProduto(null, true);
+        int linSel = jTable1.getSelectedRow();
+        if(linSel==-1){
+            Util.mensagem("Nenhuma linha selecionada");
+        }
+        JDlgCompraProduto jDlgCompraProduto = new JDlgCompraProduto(null, true);
         jDlgCompraProduto.setTitle("Alterar Produto");
         jDlgCompraProduto.setTelaAnterior(this);
-        int linSel = jTable1.getSelectedRow();
         CompraProdutoBbd compraProduto = (CompraProdutoBbd) compraProdutoControle.getBean(linSel);
         jDlgCompraProduto.beanView(compraProduto);
         jDlgCompraProduto.setVisible(true);        // TODO add your handling code here:

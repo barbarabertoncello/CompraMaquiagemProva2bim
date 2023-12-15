@@ -43,7 +43,12 @@ public class GrupoDao_bbd extends DAO_Abstract {
 
     @Override
     public Object list(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session.beginTransaction();
+    Criteria criteria = session.createCriteria(GrupoBbd.class);
+    criteria.add(Restrictions.eq("idGrupoBbd", id));
+    List lista =criteria.list();
+    session.getTransaction().commit();
+    return lista.get(0);
     }
 
     @Override

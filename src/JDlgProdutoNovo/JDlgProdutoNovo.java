@@ -7,6 +7,7 @@ package JDlgProdutoNovo;
 
 import bean.ProdutoBbd;
 import dao.ProdutoDao_bbd;
+import java.util.ArrayList;
 import java.util.List;
 import tools.Util;
 
@@ -23,6 +24,7 @@ public class JDlgProdutoNovo extends javax.swing.JDialog {
     ProdutoControle produtoControle;
     ProdutoBbd produtoBbd;
     ProdutoDao_bbd produtoDao_bbd;
+    List lista;
 
     public JDlgProdutoNovo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -31,7 +33,8 @@ public class JDlgProdutoNovo extends javax.swing.JDialog {
         produtoBbd = new ProdutoBbd();
         produtoDao_bbd = new ProdutoDao_bbd();
         produtoControle = new ProdutoControle();
-        List lista = produtoDao_bbd.listAll();
+        lista = new ArrayList();
+        lista = produtoDao_bbd.listAll();
         produtoControle.setList(lista);
         jTable1.setModel(produtoControle);
     }
@@ -133,11 +136,18 @@ public class JDlgProdutoNovo extends javax.swing.JDialog {
 
     private void jBtnExcluir_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluir_bbdActionPerformed
         // TODO add your handling code here:
-        if (jTable1.getSelectedRow() == -1) {
-            Util.mensagem("Selecione uma linha");
+        if (Util.perguntar("Deseja excluir?")) {
+            if (jTable1.getSelectedRow() == -1) {
+                Util.mensagem("Selecione uma linha antes");
+            } else {
+                produtoDao_bbd.delete(produtoControle.getBean(jTable1.getSelectedRow()));
+                lista = produtoDao_bbd.listAll();
+                produtoControle.setList(lista);
+                jTable1.setModel(produtoControle);
+                Util.mensagem("Excluido");
+            }
         } else {
-            produtoBbd = produtoControle.getBean(jTable1.getSelectedRow());
-            produtoDao_bbd.delete(produtoBbd);
+            Util.mensagem("Exclusão cancelada");
         }
     }//GEN-LAST:event_jBtnExcluir_bbdActionPerformed
 

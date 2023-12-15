@@ -49,7 +49,7 @@
                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="jTxtSobrenome_bbd" max="32767" attributes="0"/>
+                                      <Component id="jTxtSobrenome_bbd" pref="77" max="32767" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>

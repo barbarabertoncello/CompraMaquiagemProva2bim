@@ -17,7 +17,7 @@ import view.JDlgUsuario;
 
 /**
  *
- * @author u07329163139
+ * @author u04863235100
  */
 public class JDlgFornecedor extends javax.swing.JDialog {
 
@@ -34,6 +34,7 @@ public class JDlgFornecedor extends javax.swing.JDialog {
         habilitar(true);
         fornecedorBbd = new FornecedorBbd();
         fornecedorDao_bbd = new FornecedorDao_bbd();
+        incluindo = false;
         try {
             mascaraCpf = new MaskFormatter("###.###.###-##");
 
@@ -433,6 +434,7 @@ public class JDlgFornecedor extends javax.swing.JDialog {
 
     private void jBtnIncluir_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluir_bbdActionPerformed
         // TODO add your handling code here:
+        fornecedorBbd = new FornecedorBbd();
         habilitar(true);
         limparCampo();
         incluindo = true;
@@ -457,19 +459,23 @@ public class JDlgFornecedor extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnExcluir_bbdActionPerformed
 
     private void jBtnConfirmar_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmar_bbdActionPerformed
-        if (Util.perguntar("Confirmar?") && incluindo == true) {
+       
+        fornecedorDao_bbd = new FornecedorDao_bbd();
+        if (Util.perguntar("Confirmar?")) {
+            if(incluindo==true){
             fornecedorBbd = viewBean();
             fornecedorDao_bbd.insert(fornecedorBbd);
             Util.mensagem("Sucesso");
             habilitar(false);
             limparCampo();
-            fornecedorBbd = null;
-        } else if (Util.perguntar("Confirmar?") && incluindo == false) {
-            fornecedorBbd = viewBean();
+            fornecedorBbd = null;    
+            } else{
+               fornecedorBbd = viewBean();
             fornecedorDao_bbd.update(fornecedorBbd);
             Util.mensagem("Alterado");
             limparCampo();
-            fornecedorBbd = null;
+            fornecedorBbd = null; 
+            }
         } else {
             Util.mensagem("Cancelado");
         }

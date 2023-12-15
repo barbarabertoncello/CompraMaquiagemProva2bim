@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class GrupoBbd  implements java.io.Serializable {
 
 
-     private int idGrupoBbd;
+     private Integer idGrupoBbd;
      private String nomeBbd;
      private String tipoBbd;
      private String categoriaBbd;
@@ -27,10 +27,10 @@ public class GrupoBbd  implements java.io.Serializable {
     }
 
 	
-    public GrupoBbd(int idGrupoBbd) {
+    public GrupoBbd(Integer idGrupoBbd) {
         this.idGrupoBbd = idGrupoBbd;
     }
-    public GrupoBbd(int idGrupoBbd, String nomeBbd, String tipoBbd, String categoriaBbd, int ativoBbd) {
+    public GrupoBbd(Integer idGrupoBbd, String nomeBbd, String tipoBbd, String categoriaBbd, int ativoBbd) {
        this.idGrupoBbd = idGrupoBbd;
        this.nomeBbd = nomeBbd;
        this.tipoBbd = tipoBbd;

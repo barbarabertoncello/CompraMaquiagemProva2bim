@@ -11,7 +11,7 @@ import tools.Util;
 
 /**
  *
- * @author u07329163139
+ * @author u04863235100
  */
 public class JDlgFornecedorPesquisar extends javax.swing.JDialog {
 

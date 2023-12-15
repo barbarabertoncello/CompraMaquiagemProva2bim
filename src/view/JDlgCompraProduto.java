@@ -14,7 +14,7 @@ import tools.Util;
 
 /**
  *
- * @author u07329163139
+ * @author u04863235100
  */
 public class JDlgCompraProduto extends javax.swing.JDialog {
 
@@ -189,11 +189,12 @@ public class JDlgCompraProduto extends javax.swing.JDialog {
         // TODO add your handling code here:
         jTxtQuantidade.setText( "1" );
         ProdutoBbd produtos = (ProdutoBbd) jCboProdutos.getSelectedItem();
-        jTxtPrecoUnitario.setText( Util.doubleStr(produtos.getValorBbd()));
+        jTxtPrecoUnitario.setText(Util.doubleStr(produtos.getValorBbd()));
     }//GEN-LAST:event_jCboProdutosActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-      CompraProdutoBbd compraProduto = new CompraProdutoBbd();
+        // TODO add your handling code here:
+        CompraProdutoBbd compraProduto = new CompraProdutoBbd();
         compraProduto.setProdutoBbd((ProdutoBbd) jCboProdutos.getSelectedItem() );
         compraProduto.setQuantidadeBbd(Util.strInt(jTxtQuantidade.getText() ));
         compraProduto.setValorUnitarioBdd(Util.strDouble(jTxtPrecoUnitario.getText()));

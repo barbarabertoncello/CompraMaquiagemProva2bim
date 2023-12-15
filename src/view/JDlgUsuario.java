@@ -344,10 +344,18 @@ public class JDlgUsuario extends javax.swing.JDialog {
 
     private void jBtnExcluir_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluir_bbdActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("Quer excluir?")) {
-            Util.mensagem("Excluido com sucesso");
-        } else {
-            Util.mensagem("Exclusão cancelada");
+        if (usuarioBbd!= null) {
+            if(Util.perguntar("deseja excluir?")){
+                usuarioBbd = telaBean();
+                usuarioDao_bbd.delete(usuarioBbd);
+                limparCampo();
+                usuarioBbd = null;
+                Util.mensagem("Excluido");
+            } else {
+                Util.mensagem("exclusão cancelada");
+            }   
+        } else{
+            Util.mensagem("Nenhuma linha selecioanda");
         }
     }//GEN-LAST:event_jBtnExcluir_bbdActionPerformed
 

@@ -6,7 +6,7 @@
 package view;
 
 import bean.GrupoBbd;
-import consultas.JDlgConsultasGrupo;
+import dao.GrupoDao_bbd;
 import java.util.ArrayList;
 import tools.Util;
 
@@ -16,7 +16,8 @@ import tools.Util;
  */
 public class JDlgGrupo extends javax.swing.JDialog {
 
-        GrupoBbd grupoBbd;
+        public GrupoDao_bbd grupoDao_bbd;
+        public GrupoBbd grupoBbd;
         Boolean incluindo;
         
     public JDlgGrupo(java.awt.Frame parent, boolean modal) {
@@ -24,7 +25,9 @@ public class JDlgGrupo extends javax.swing.JDialog {
         initComponents();
         setTitle("Cadastro de Grupo");
         setLocationRelativeTo(null);
-       
+        habilitar(false);
+        grupoDao_bbd = new GrupoDao_bbd();
+        grupoBbd = new GrupoBbd();
     }
     public void habilitar(boolean valor) {
         Util.habilitar(valor, JtxtCodigo_bbd, JtxtNome_bbd, JtxtTipo_bbd, jTxtCategoriaBbd,jCboAtivoBbd, jBtnConfirmar_bbd, jBtnCancelar_bbd);
@@ -40,7 +43,6 @@ public class JDlgGrupo extends javax.swing.JDialog {
         grupoBbd.setCategoriaBbd(jTxtCategoriaBbd.getText());
         grupoBbd.setAtivoBbd(jCboAtivoBbd.isSelected() == true ? 1 : 2);
 
-       
         return grupoBbd;
     }
 
@@ -251,6 +253,7 @@ public class JDlgGrupo extends javax.swing.JDialog {
 
     private void jBtnPesquisar_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisar_bbdActionPerformed
         // TODO add your handling code here:
+          grupoBbd = new GrupoBbd();
           JDlgGrupoPesquisar jDlgGrupoPesquisar  = new JDlgGrupoPesquisar (null, true);
           jDlgGrupoPesquisar.setTelaAnterior(this);
           jDlgGrupoPesquisar.setVisible(true);
@@ -258,31 +261,49 @@ public class JDlgGrupo extends javax.swing.JDialog {
 
     private void jBtnIncluir_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluir_bbdActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,JtxtCodigo_bbd, JtxtNome_bbd, JtxtTipo_bbd, jTxtCategoriaBbd,jCboAtivoBbd, jBtnConfirmar_bbd, jBtnCancelar_bbd );
-        Util.habilitar(false, jBtnIncluir_bbd, jBtnAlterar_bbd, jBtnExcluir_bbd, jBtnPesquisar_bbd);
-        Util.limparCampos(JtxtCodigo_bbd, JtxtNome_bbd, JtxtTipo_bbd, jTxtCategoriaBbd,jCboAtivoBbd);
+        grupoBbd = new GrupoBbd();
+        habilitar(true);
+        limparCampos();
         incluindo = true;
     }//GEN-LAST:event_jBtnIncluir_bbdActionPerformed
 
     private void jBtnAlterar_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterar_bbdActionPerformed
         // TODO add your handling code here:
-      habilitar(true);
+        habilitar(true);
         JtxtCodigo_bbd.setEnabled(false);
         incluindo = false;
     }//GEN-LAST:event_jBtnAlterar_bbdActionPerformed
 
     private void jBtnExcluir_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluir_bbdActionPerformed
         // TODO add your handling code here:
-         if (Util.perguntar("Quer excluir?")) {
-            Util.mensagem("Excluido com sucesso");
+         if (grupoBbd!= null) {
+            if(Util.perguntar("Deseja excluir?")){
+                grupoBbd = viewBean();
+                grupoDao_bbd = new GrupoDao_bbd();
+                limparCampos();
+                grupoBbd = null;
+                Util.mensagem("Excluido");
+                limparCampos();
+            } else {
+                Util.mensagem("exclusão cancelada");
+            }   
+        } else{
+            Util.mensagem("Nenhuma linha selecioanda");
         }
+         
     }//GEN-LAST:event_jBtnExcluir_bbdActionPerformed
 
     private void jBtnConfirmar_bbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmar_bbdActionPerformed
         // TODO add your handling code here:
-          if(Util.perguntar("Confirmar?")) {
-              Util.mensagem("Confirmado!");
-          } 
+          grupoBbd = viewBean();
+          grupoDao_bbd = new GrupoDao_bbd();
+        if (incluindo == true) {
+            grupoDao_bbd.insert(grupoBbd);
+        } else {
+            grupoDao_bbd.update(grupoBbd);
+        }
+        habilitar(false);
+        limparCampos();
 
     }//GEN-LAST:event_jBtnConfirmar_bbdActionPerformed
 
@@ -355,4 +376,7 @@ public class JDlgGrupo extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTxtCategoriaBbd;
     // End of variables declaration//GEN-END:variables
+
+    private void limparCampos() {
+    }
 }

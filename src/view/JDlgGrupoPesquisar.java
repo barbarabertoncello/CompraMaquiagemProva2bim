@@ -23,6 +23,7 @@ public class JDlgGrupoPesquisar extends javax.swing.JDialog {
     public JDlgGrupoPesquisar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         grupoControle = new GrupoControle();
         GrupoDao_bbd grupoDao_bbd = new GrupoDao_bbd();
         List lista = grupoDao_bbd.listAll();
@@ -130,9 +131,11 @@ public class JDlgGrupoPesquisar extends javax.swing.JDialog {
         if (rowSel == -1) {
             Util.mensagem("Selecione uma Linha");
         }else{
-            Util.mensagem("Linha Selecionada");
+            jDlgGrupo.grupoBbd = grupoControle.getBean(rowSel);
+            jDlgGrupo.beanView(jDlgGrupo.grupoBbd);
             setVisible(false);
         }
+       
         
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
