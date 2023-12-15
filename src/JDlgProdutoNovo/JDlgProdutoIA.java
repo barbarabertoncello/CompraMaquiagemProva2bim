@@ -16,11 +16,7 @@ import tools.Util;
  * /**
  *
  * @author u4863235100
- * 
- * 
  */
-//teste de git hub
-
 public class JDlgProdutoIA extends javax.swing.JDialog {
 
     ProdutoDao_bbd produtoDao_bbd;

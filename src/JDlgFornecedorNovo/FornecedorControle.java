@@ -6,6 +6,7 @@
 package JDlgFornecedorNovo;
 
 import bean.FornecedorBbd;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -15,28 +16,33 @@ import javax.swing.table.AbstractTableModel;
  */
 public class FornecedorControle extends AbstractTableModel {
 
-    private List lista;
+    List lista  ;
 
     public void setList(List lista) {
         this.lista = lista;
+        this.fireTableDataChanged();
     }
 
     public FornecedorBbd getBean(int linha) {
         return (FornecedorBbd) lista.get(linha);
     }
 
-    @Override
-    public int getRowCount() {
-
-        return lista.size();
-    }
-
     public void addList(FornecedorBbd fornecedorBbd) {
         lista.add(fornecedorBbd);
+        this.fireTableDataChanged();
     }
 
     public void removeList(int i) {
         lista.remove(i);
+        this.fireTableDataChanged();
+    }
+    public void recarregar(){
+        this.fireTableDataChanged();
+    }
+
+    @Override
+    public int getRowCount() {
+        return lista.size();
     }
 
     @Override
@@ -53,46 +59,46 @@ public class FornecedorControle extends AbstractTableModel {
         if (columnIndex == 1) {
             return FornecedorBbd.getNomeProprietarioBbd();
         }
-      if (columnIndex == 2) {
+        if (columnIndex == 2) {
             return FornecedorBbd.getSobrenomeBbd();
         }
-      if (columnIndex == 3) {
+        if (columnIndex == 3) {
             return FornecedorBbd.getCpfBbd();
         }
-      if (columnIndex == 4) {
+        if (columnIndex == 4) {
             return FornecedorBbd.getRgBbd();
         }
-      if (columnIndex == 5) {
+        if (columnIndex == 5) {
             return FornecedorBbd.getEnderecoBbd();
         }
-      if (columnIndex == 6) {
+        if (columnIndex == 6) {
             return FornecedorBbd.getAtivoBbd();
         }
-      if (columnIndex == 7) {
+        if (columnIndex == 7) {
             return FornecedorBbd.getEmailBbd();
         }
-      if (columnIndex == 8) {
+        if (columnIndex == 8) {
             return FornecedorBbd.getInstagramBbd();
         }
-      if (columnIndex == 9) {
+        if (columnIndex == 9) {
             return FornecedorBbd.getTelefoneFixoBbd();
         }
-      if (columnIndex == 10) {
+        if (columnIndex == 10) {
             return FornecedorBbd.getCelularBbd();
         }
-      if (columnIndex == 11) {
+        if (columnIndex == 11) {
             return FornecedorBbd.getSiteBbd();
         }
-      if (columnIndex == 12) {
+        if (columnIndex == 12) {
             return FornecedorBbd.getCnpjBbd();
         }
-      if (columnIndex == 13) {
+        if (columnIndex == 13) {
             return FornecedorBbd.getFacebookBbd();
         }
-      if (columnIndex == 14) {
+        if (columnIndex == 14) {
             return FornecedorBbd.getNomeFantasiaBbd();
         }
-        return null;
+        return "";
     }
 
     @Override
@@ -116,31 +122,31 @@ public class FornecedorControle extends AbstractTableModel {
             return "Endereço";
         }
         if (columnIndex == 6) {
-            return "ativo";
+            return "Ativo";
         }
         if (columnIndex == 7) {
-            return "email";
+            return "Email";
         }
         if (columnIndex == 8) {
-            return "instagram";
+            return "Instagram";
         }
         if (columnIndex == 9) {
-            return "telefone Fixo";
+            return "Telefone Fixo";
         }
         if (columnIndex == 10) {
-            return "celular";
+            return "Celular";
         }
         if (columnIndex == 11) {
-            return "site";
+            return "Site";
         }
         if (columnIndex == 12) {
-            return "cnpj";
+            return "CNPJ";
         }
         if (columnIndex == 13) {
-            return "facebook";
+            return "Facebook";
         }
         if (columnIndex == 14) {
-            return "nome fantasia";
+            return "Nome fantasia";
         }
         return "";
     }

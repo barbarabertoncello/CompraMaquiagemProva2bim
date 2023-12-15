@@ -20,6 +20,8 @@ public class FornecedorDao_bbd extends DAO_Abstract {
     @Override
     public void insert(Object object) {
         session.beginTransaction();
+        session.flush();
+        session.clear();
         session.save(object);
         session.getTransaction().commit();
     }
@@ -55,35 +57,36 @@ public class FornecedorDao_bbd extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
- public Object listNome(String nome) {
-        session.beginTransaction(); 
-        Criteria criteria = session.createCriteria(ProdutoBbd.class); 
-        criteria.add(Restrictions.like("nome", "%" + nome + "%")); 
-        List lista = criteria.list(); 
-        session.getTransaction().commit(); 
-        return lista;  
+
+    public Object listNome(String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(ProdutoBbd.class);
+        criteria.add(Restrictions.like("nome", "%" + nome + "%"));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
 
     }
 
     public Object listValor(double valor) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(ProdutoBbd.class);
-        criteria.add(Restrictions.lt("valor", valor)); 
-        List lista = criteria.list(); 
+        criteria.add(Restrictions.lt("valor", valor));
+        List lista = criteria.list();
         session.getTransaction().commit();
-        return lista; 
+        return lista;
 
     }
 
     public Object listNomeValor(String nome, double valor) {
-        session.beginTransaction(); 
-        Criteria criteria = session.createCriteria(ProdutoBbd.class); 
-        criteria.add(Restrictions.like("nome", "%" + nome + "%")); 
-        criteria.add(Restrictions.lt("valor", valor)); 
-       
-        List lista = criteria.list(); 
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(ProdutoBbd.class);
+        criteria.add(Restrictions.like("nome", "%" + nome + "%"));
+        criteria.add(Restrictions.lt("valor", valor));
+
+        List lista = criteria.list();
         session.getTransaction().commit();
-        return lista; 
+        return lista;
 
     }
 }

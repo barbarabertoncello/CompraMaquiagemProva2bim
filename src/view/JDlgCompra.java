@@ -27,7 +27,6 @@ import tools.Util;
  *
  * @author 04863235100
  */
-
 public class JDlgCompra extends javax.swing.JDialog {
 
     MaskFormatter mascaraData;
@@ -45,6 +44,7 @@ public class JDlgCompra extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("COMPRA DE MAQUIAGEM");
+        habilitar(false);
         compraDao_bbd = new CompraDao_bbd();
         List lista = new ArrayList();
 
@@ -57,24 +57,29 @@ public class JDlgCompra extends javax.swing.JDialog {
         compraProdutoControle = new CompraProdutoControle();
         compraProdutoControle.setList(lista);
         jTable1.setModel(compraProdutoControle);
+        
+        try {
+            mascaraData = new MaskFormatter("##/##/####");
+        } catch (ParseException ex) {
+            Logger.getLogger(JDlgCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
 
-                     
     }
-    
-    
+
     public void habilitar(boolean valor) {
         Util.habilitar(valor, jTxtNumCompra, jFmtData, jCboFornecedor_bbd, jTxtTotal, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(valor, jBtnIncluirbbd, jBtnAlterarbbd, jBtnExcluirbbd);
         Util.habilitar(!valor, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }
-    
-       public CompraBbd viewBean() {
+
+    public CompraBbd viewBean() {
         CompraBbd compraBdb = new CompraBbd();
         compraBdb.setIdcompraBbd(Integer.parseInt(jTxtNumCompra.getText()));
         compraBdb.setDataCompraBbd(Util.strDate(jFmtData.getText()));
         compraBdb.setFornecedorBbd((FornecedorBbd) jCboFornecedor_bbd.getSelectedItem());
         compraBdb.setTotalBbd(Util.strDouble(jTxtTotal.getText()));
-       
+
         return compraBdb;
     }
 
@@ -83,7 +88,7 @@ public class JDlgCompra extends javax.swing.JDialog {
         jFmtData.setText(Util.dateStr(compraBdb.getDataCompraBbd()));
         jCboFornecedor_bbd.setSelectedItem(compraBdb.getFornecedorBbd());
         jTxtTotal.setText(String.valueOf(compraBdb.getTotalBbd()));
-        
+
         CompraProdutoDao_Bbd compraProdutoDAO = new CompraProdutoDao_Bbd();
         List listaProd = (List) compraProdutoDAO.ListProdutos(compraBdb);
 
@@ -117,12 +122,12 @@ public class JDlgCompra extends javax.swing.JDialog {
         jCboFornecedor_bbd = new javax.swing.JComboBox<FornecedorBbd>();
         jBtnConfirmar = new javax.swing.JButton();
         jBtnExcluir = new javax.swing.JButton();
-        jFmtData = new javax.swing.JTextField();
         jBtnAlterar = new javax.swing.JButton();
         jTxtTotal = new javax.swing.JTextField();
         jBtnIncluir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jBtnExcluirbbd = new javax.swing.JButton();
+        jFmtData = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -227,11 +232,11 @@ public class JDlgCompra extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jTxtNumCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -277,9 +282,9 @@ public class JDlgCompra extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtNumCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCboFornecedor_bbd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtTotal))
+                    .addComponent(jTxtTotal)
+                    .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,15 +310,15 @@ public class JDlgCompra extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
-         habilitar(false);
-        Util.limparCampos(jTxtNumCompra, jFmtData, jCboFornecedor_bbd, jTxtTotal );
+        habilitar(false);
+        Util.limparCampos(jTxtNumCompra, jFmtData, jCboFornecedor_bbd, jTxtTotal);
         compraProdutoControle.setList(new ArrayList());
         compraBbd = null;
- // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jBtnCancelarActionPerformed
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
-        Util.limparCampos(jTxtNumCompra, jFmtData, jCboFornecedor_bbd,  jTxtTotal);
+        Util.limparCampos(jTxtNumCompra, jFmtData, jCboFornecedor_bbd, jTxtTotal);
         habilitar(true);
         compraProdutoControle.setList(new ArrayList());
         jTxtNumCompra.grabFocus();
@@ -324,30 +329,42 @@ public class JDlgCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnIncluirActionPerformed
 
     private void jBtnIncluirbbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirbbdActionPerformed
-       JDlgCompraProduto jDlgCompraProduto = new JDlgCompraProduto(null, true);
+        JDlgCompraProduto jDlgCompraProduto = new JDlgCompraProduto(null, true);
         jDlgCompraProduto.setTitle("inclusão de produtos");
         jDlgCompraProduto.setTelaAnterior(this);
         jDlgCompraProduto.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jBtnIncluirbbdActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-           if (Util.perguntar("Deseja excluir a compra ?") == true) {
+        /* if (Util.perguntar("Deseja excluir a compra ?") == true) {
             for (int i = 0; i < jTable1.getRowCount(); i++) {
-
                 compraDao_bbd.delete(compraProdutoControle.getList(i));
-
             }
         } else {
             Util.mensagem("Compra não excluida");
-        };     // TODO add your handling code here:
-
+        };   */  // TODO add your handling code here:
+        if (compraBbd != null) {
+            if (Util.perguntar("Deseja excluir o pedido ?") == true) {
+                CompraProdutoDao_Bbd compraProdutoDao_Bbd = new CompraProdutoDao_Bbd();
+                CompraProdutoBbd compraProdutoBbd;
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                    compraProdutoBbd = compraProdutoControle.getBean(linha);
+                    compraProdutoDao_Bbd.delete(compraProdutoBbd);
+                }
+                compraDao_bbd.delete(compraBbd);
+            }
+        } else {
+            Util.mensagem("Deve ser realizada uma pesquisa antes");
+        }
+        Util.limparCampos(jTxtNumCompra, jFmtData, jCboFornecedor_bbd, jTxtTotal);
+        compraBbd = null;
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
 
         if (compraBbd != null) {
-            Util.habilitar(true, jFmtData, jTxtNumCompra, jTxtTotal, jCboFornecedor_bbd, 
-                     jBtnConfirmar, jBtnCancelar, jBtnAlterarbbd, jBtnExcluirbbd, jBtnIncluirbbd);
+            Util.habilitar(true, jFmtData, jTxtNumCompra, jTxtTotal, jCboFornecedor_bbd,
+                    jBtnConfirmar, jBtnCancelar, jBtnAlterarbbd, jBtnExcluirbbd, jBtnIncluirbbd);
             Util.habilitar(false, jBtnAlterar, jBtnExcluir, jBtnIncluir, jBtnPesquisar);
             incluindo = false;
         } else {
@@ -356,7 +373,7 @@ public class JDlgCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
-              compraBbd = viewBean();
+        compraBbd = viewBean();
         if (incluindo == true) {
             compraDao_bbd.insert(compraBbd);
             CompraProdutoDao_Bbd compraProdutoDAO = new CompraProdutoDao_Bbd();
@@ -369,7 +386,7 @@ public class JDlgCompra extends javax.swing.JDialog {
         } else {
             compraDao_bbd.update(compraBbd);
             //remover todos os pedidos produtos deste pedido
-
+            //Ainda não foi feito
             //incluir todos os pedidosProduto que estao na tabela
             CompraProdutoDao_Bbd compraProdutoDAO = new CompraProdutoDao_Bbd();
             CompraProdutoBbd compraProdutos;
@@ -390,14 +407,14 @@ public class JDlgCompra extends javax.swing.JDialog {
         JDlgCompraPesquisar jDlgCompraPesquisar = new JDlgCompraPesquisar(null, true);
         jDlgCompraPesquisar.setTelaAnterior(this);
         jDlgCompraPesquisar.setVisible(true);
-        compraBbd = new CompraBbd();    
-     
+        compraBbd = new CompraBbd();
+
 // TODO add your handling code here:
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
     private void jBtnAlterarbbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarbbdActionPerformed
         int linSel = jTable1.getSelectedRow();
-        if(linSel==-1){
+        if (linSel == -1) {
             Util.mensagem("Nenhuma linha selecionada");
         }
         JDlgCompraProduto jDlgCompraProduto = new JDlgCompraProduto(null, true);
@@ -409,7 +426,7 @@ public class JDlgCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnAlterarbbdActionPerformed
 
     private void jBtnExcluirbbdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirbbdActionPerformed
-       int linha = jTable1.getSelectedRow();
+        int linha = jTable1.getSelectedRow();
         if (linha == -1) {
             Util.mensagem("Nenhuma linha selecionada");
         } else {
@@ -472,7 +489,7 @@ public class JDlgCompra extends javax.swing.JDialog {
     private javax.swing.JButton jBtnIncluirbbd;
     private javax.swing.JButton jBtnPesquisar;
     private javax.swing.JComboBox<FornecedorBbd> jCboFornecedor_bbd;
-    private javax.swing.JTextField jFmtData;
+    private javax.swing.JFormattedTextField jFmtData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

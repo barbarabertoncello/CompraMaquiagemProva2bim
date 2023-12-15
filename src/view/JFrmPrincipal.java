@@ -5,7 +5,7 @@
  */
 package view;
 
-import JDlgFornecedorNovo.JDlgFornecedor;
+import JDlgFornecedorNovo.JDlgFornecedorNovo;
 import JDlgProdutoNovo.JDlgProdutoIA;
 import consultas.JDlgConsultasGrupo;
 import consultas.JDlgConsultasFornecedor;
@@ -292,7 +292,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jMnuFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuFornecedorActionPerformed
         // TODO add your handling code here:
-        JDlgFornecedor jDlgFornecedor = new JDlgFornecedor(this, true);
+        JDlgFornecedorNovo jDlgFornecedor = new JDlgFornecedorNovo(this, true);
         jDlgFornecedor.setVisible(true);
 
     }//GEN-LAST:event_jMnuFornecedorActionPerformed
@@ -347,7 +347,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jBtnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnFornecedorActionPerformed
         // TODO add your handling code here:
-        JDlgFornecedor jDlgFornecedor = new JDlgFornecedor(this, true);
+        JDlgFornecedorNovo jDlgFornecedor = new JDlgFornecedorNovo(this, true);
         jDlgFornecedor.setVisible(true);
 
     }//GEN-LAST:event_jBtnFornecedorActionPerformed
