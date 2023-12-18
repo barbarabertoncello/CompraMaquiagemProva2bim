@@ -36,7 +36,7 @@ to extend the choice of license to its licensees as provided above.
 However, if you add GPL Version 2 code and therefore, elected the GPL
 Version 2 license, then the option applies only if the new code is
 made subject to such option by the copyright holder.
-
+ <property name="hibernate.connection.password">barbara_dias</property>
 
 Contributor(s):
 -->
@@ -44,9 +44,9 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_barbara_dias?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">barbara_dias</property>
-     <property name="hibernate.connection.password">barbara_dias</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_barbara_dias?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+   
   
     <mapping class="bean.CompraBbd"/>
     <mapping class="bean.CompraProdutoBbd"/>

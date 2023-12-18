@@ -67,7 +67,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMnuCompras = new javax.swing.JMenuItem();
-        jMnuCompra_Produto = new javax.swing.JMenuItem();
         jMnuConsultasGrupo = new javax.swing.JMenu();
         jMnuConsultasUsuario = new javax.swing.JMenuItem();
         jMnuFornecedorConsulta = new javax.swing.JMenuItem();
@@ -193,17 +192,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMnuCompras);
 
-        jMnuCompra_Produto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMnuCompra_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/caixas.png"))); // NOI18N
-        jMnuCompra_Produto.setMnemonic('l');
-        jMnuCompra_Produto.setText("Comprar Produto");
-        jMnuCompra_Produto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMnuCompra_ProdutoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMnuCompra_Produto);
-
         jMenuBar1.add(jMenu2);
 
         jMnuConsultasGrupo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -283,12 +271,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         JDlgCompra jDlgCompra = new JDlgCompra(this, true);
         jDlgCompra.setVisible(true);
     }//GEN-LAST:event_jMnuComprasActionPerformed
-
-    private void jMnuCompra_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuCompra_ProdutoActionPerformed
-        // TODO add your handling code here:
-        JDlgCompraProduto jDlgCompraProduto = new JDlgCompraProduto(this, true);
-        jDlgCompraProduto.setVisible(true);
-    }//GEN-LAST:event_jMnuCompra_ProdutoActionPerformed
 
     private void jMnuFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuFornecedorActionPerformed
         // TODO add your handling code here:
@@ -402,7 +384,6 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMnuCompra_Produto;
     private javax.swing.JMenuItem jMnuCompras;
     private javax.swing.JMenuItem jMnuComprasConsulta;
     private javax.swing.JMenu jMnuConsultasGrupo;

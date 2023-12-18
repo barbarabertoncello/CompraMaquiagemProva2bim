@@ -51,6 +51,24 @@ public class CompraProdutoDao_Bbd extends DAO_Abstract {
         session.delete(object);
         session.getTransaction().commit();
     }
+    public void apagarCompra(Object object) {
+        session.beginTransaction();
+        session.flush();
+        session.clear();
+
+        if (object instanceof CompraBbd) {
+            CompraBbd compra = (CompraBbd) object;
+
+            Criteria criteria = session.createCriteria(CompraProdutoBbd.class);
+            criteria.add(Restrictions.eq("compraBbd.idcompraBbd", compra.getIdcompraBbd()));
+
+            List lista = criteria.list();
+            for (Object produto : lista) {
+                session.delete(produto);
+            }
+            session.getTransaction().commit();
+        }
+    }
 
     @Override
     public Object list(int id) {

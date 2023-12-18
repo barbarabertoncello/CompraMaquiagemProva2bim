@@ -238,7 +238,7 @@ public class JDlgProdutoIA extends javax.swing.JDialog {
             setVisible(false);
         } else if (getTitle().equals("Alterar")) {
             produtoDao_bbd.update(produtoBbd);
-             List lista = produtoDao_bbd.listAll();
+            List lista = produtoDao_bbd.listAll();
             jDlgProdutoNovo.produtoControle.setList(lista);
             jTxtCodigoProduto_bbd.setEnabled(false);
             util.mensagem("Alterado");

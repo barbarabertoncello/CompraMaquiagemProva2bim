@@ -46,6 +46,7 @@ public class JDlgCompra extends javax.swing.JDialog {
         setTitle("COMPRA DE MAQUIAGEM");
         habilitar(false);
         compraDao_bbd = new CompraDao_bbd();
+        compraBbd = new CompraBbd();
         List lista = new ArrayList();
 
         FornecedorDao_bbd fornecedorDao_bbd = new FornecedorDao_bbd();
@@ -343,14 +344,18 @@ public class JDlgCompra extends javax.swing.JDialog {
         } else {
             Util.mensagem("Compra não excluida");
         };   */  // TODO add your handling code here:
+        CompraProdutoDao_Bbd compraProdutoDao_Bbd = new CompraProdutoDao_Bbd();
+        compraBbd = viewBean();
+//        CompraProdutoBbd compraProdutoBbd;
+//        compraDao_bbd = new CompraDao_bbd();
         if (compraBbd != null) {
             if (Util.perguntar("Deseja excluir o pedido ?") == true) {
-                CompraProdutoDao_Bbd compraProdutoDao_Bbd = new CompraProdutoDao_Bbd();
-                CompraProdutoBbd compraProdutoBbd;
-                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
-                    compraProdutoBbd = compraProdutoControle.getBean(linha);
-                    compraProdutoDao_Bbd.delete(compraProdutoBbd);
-                }
+                compraProdutoDao_Bbd.apagarCompra(compraBbd);
+//                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+////                    compraProdutoDao_Bbd =  new CompraProdutoDao_Bbd();
+////                    compraProdutoBbd = compraProdutoControle.getBean(linha);
+////                    compraProdutoDao_Bbd.delete(compraProdutoBbd);
+//                }
                 compraDao_bbd.delete(compraBbd);
             }
         } else {
@@ -361,7 +366,7 @@ public class JDlgCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
-
+        
         if (compraBbd != null) {
             Util.habilitar(true, jFmtData, jTxtNumCompra, jTxtTotal, jCboFornecedor_bbd,
                     jBtnConfirmar, jBtnCancelar, jBtnAlterarbbd, jBtnExcluirbbd, jBtnIncluirbbd);
@@ -373,11 +378,14 @@ public class JDlgCompra extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
+        compraBbd = new CompraBbd();
         compraBbd = viewBean();
-        if (incluindo == true) {
+        compraDao_bbd = new CompraDao_bbd();
+        CompraProdutoDao_Bbd compraProdutoDAO = new CompraProdutoDao_Bbd();
+        CompraProdutoBbd compraProduto;
+        if (incluindo == true && compraBbd != null) {
             compraDao_bbd.insert(compraBbd);
-            CompraProdutoDao_Bbd compraProdutoDAO = new CompraProdutoDao_Bbd();
-            CompraProdutoBbd compraProduto;
+     
             for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
                 compraProduto = compraProdutoControle.getBean(linha);
                 compraProduto.setCompraBbd(compraBbd);
@@ -385,15 +393,16 @@ public class JDlgCompra extends javax.swing.JDialog {
             }
         } else {
             compraDao_bbd.update(compraBbd);
+            
             //remover todos os pedidos produtos deste pedido
             //Ainda não foi feito
+            compraProdutoDAO.apagarCompra(compraBbd);
             //incluir todos os pedidosProduto que estao na tabela
-            CompraProdutoDao_Bbd compraProdutoDAO = new CompraProdutoDao_Bbd();
-            CompraProdutoBbd compraProdutos;
+           
             for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
-                compraProdutos = compraProdutoControle.getBean(linha);
-                compraProdutos.setCompraBbd(compraBbd);
-                compraProdutoDAO.insert(compraProdutos);
+                compraProduto = compraProdutoControle.getBean(linha);
+                compraProduto.setCompraBbd(compraBbd);
+                compraProdutoDAO.insert(compraProduto);
             }
         }
         habilitar(false);
